@@ -9,15 +9,16 @@ import (
 )
 
 //go:embed input.txt
-var s string
+var input string
 
 func main() {
-	d := parseInput(s)
+	data := parseInput(input)
+	sort.Sort(sort.Reverse(sort.IntSlice(data)))
 
-	p1 := part1(d)
+	p1 := part1(data)
 	fmt.Printf("Day 1-Part 1: %d\n", p1)
 
-	p2 := part2(d)
+	p2 := part2(data)
 	fmt.Printf("Day 1-Part 2: %d\n", p2)
 }
 
@@ -30,22 +31,23 @@ func part2(i []int) int {
 }
 
 func parseInput(s string) []int {
-	var totals []int
-	var t int
+	var (
+		totals []int
+		total  int
+	)
 
 	split := strings.Split(s, "\n")
 	for _, v := range split {
 		if v == "" {
-			totals = append(totals, t)
-			t = 0
+			totals = append(totals, total)
+			total = 0
 			continue
 		}
-		cal, _ := strconv.Atoi(v)
-		t += cal
+		v, _ := strconv.Atoi(v)
+		total += v
 	}
-	totals = append(totals, t)
+	totals = append(totals, total)
 
-	sort.Sort(sort.Reverse(sort.IntSlice(totals)))
 	return totals
 }
 
