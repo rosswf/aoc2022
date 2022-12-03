@@ -21,14 +21,14 @@ func main() {
 	fmt.Printf("Day 3-Part 2: %d\n", p2)
 }
 
-func part1(elves []string) (priority int) {
+func part1(elves []string) (p int) {
 	for _, e := range elves {
 		firstRucksack := e[:len(e)/2]
 		secondRucksack := e[len(e)/2:]
 
 		for _, s := range firstRucksack {
 			if strings.Contains(secondRucksack, string(s)) {
-				priority += letterToNum(byte(s))
+				p += priority(byte(s))
 				break
 			}
 		}
@@ -36,11 +36,11 @@ func part1(elves []string) (priority int) {
 	return
 }
 
-func part2(elves []string) (priority int) {
+func part2(elves []string) (p int) {
 	for i := 0; i < len(elves); i += 3 {
 		for _, s := range elves[i] {
 			if strings.Contains(elves[i+1], string(s)) && strings.Contains(elves[i+2], string(s)) {
-				priority += letterToNum(byte(s))
+				p += priority(byte(s))
 				break
 			}
 		}
@@ -48,7 +48,7 @@ func part2(elves []string) (priority int) {
 	return
 }
 
-func letterToNum(c byte) int {
+func priority(c byte) int {
 	if c > 90 {
 		return int(c) - 96
 	}
