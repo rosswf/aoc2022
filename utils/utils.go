@@ -7,3 +7,16 @@ func Map[T, V comparable](v []T, f func(T) V) []V {
 	}
 	return vsm
 }
+
+type Stack []string
+
+func (st *Stack) Push(s string) {
+	*st = append(*st, s)
+}
+
+func (st *Stack) Pop() string {
+	i := len(*st) - 1
+	v := (*st)[i]
+	*st = (*st)[:i]
+	return v
+}

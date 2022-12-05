@@ -10,19 +10,6 @@ import (
 	"github.com/rosswf/aoc2022/utils"
 )
 
-type Stack []string
-
-func (st *Stack) Push(s string) {
-	*st = append(*st, s)
-}
-
-func (st *Stack) Pop() string {
-	i := len(*st) - 1
-	v := (*st)[i]
-	*st = (*st)[:i]
-	return v
-}
-
 type move struct {
 	qty  int
 	from int
@@ -49,7 +36,7 @@ func main() {
 	fmt.Printf("Day 5-Part 2: %s\n", p2)
 }
 
-func part1(s []Stack, moves []move) string {
+func part1(s []utils.Stack, moves []move) string {
 	for _, m := range moves {
 		for i := 0; i < m.qty; i++ {
 			v := s[m.from-1].Pop()
@@ -66,9 +53,9 @@ func part1(s []Stack, moves []move) string {
 	return sb.String()
 }
 
-func part2(s []Stack, moves []move) string {
+func part2(s []utils.Stack, moves []move) string {
 	for _, m := range moves {
-		picked := make(Stack, m.qty)
+		picked := make(utils.Stack, m.qty)
 		for i := m.qty - 1; i >= 0; i-- {
 			picked[i] = s[m.from-1].Pop()
 		}
@@ -84,11 +71,11 @@ func part2(s []Stack, moves []move) string {
 	return sb.String()
 }
 
-func parseStacks(s string) *[]Stack {
+func parseStacks(s string) *[]utils.Stack {
 	tallest := strings.Count(s, "\n")
 	qtyStacks, _ := strconv.Atoi(string(s[len(s)-2]))
 
-	stacks := make([]Stack, qtyStacks)
+	stacks := make([]utils.Stack, qtyStacks)
 
 	for i, stack := range strings.Split(s, "\n") {
 		stack = "  " + stack
@@ -98,7 +85,7 @@ func parseStacks(s string) *[]Stack {
 				crate := stack[j+1]
 
 				if stacks[stackNo] == nil {
-					stacks[stackNo] = make(Stack, tallest-i)
+					stacks[stackNo] = make(utils.Stack, tallest-i)
 				}
 
 				stacks[stackNo][tallest-i-1] = string(crate)
