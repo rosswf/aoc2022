@@ -16,7 +16,6 @@ func main() {
 
 	fmt.Printf("Day 6-Part 1: %d\n", p1)
 	fmt.Printf("Day 6-Part 2: %d\n", p2)
-
 }
 
 func findMarker(s string, n int) int {
