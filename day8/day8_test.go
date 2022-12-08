@@ -29,7 +29,7 @@ func TestParse(t *testing.T) {
 func TestPart1(t *testing.T) {
 	ti := strings.TrimSuffix(ti, "\n")
 	trees := parse(ti)
-	got := part1(trees)
+	got, _ := solve(trees)
 	want := 21
 
 	if got != want {
@@ -40,7 +40,7 @@ func TestPart1(t *testing.T) {
 func TestPart2(t *testing.T) {
 	ti := strings.TrimSuffix(ti, "\n")
 	trees := parse(ti)
-	got := part2(trees)
+	_, got := solve(trees)
 	want := 8
 
 	if got != want {

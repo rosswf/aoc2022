@@ -19,18 +19,24 @@ type forest struct {
 func main() {
 	s := strings.TrimSuffix(s, "\n")
 	f := parse(s)
-	p1 := part1(f)
-	p2 := part2(f)
+	p1, p2 := solve(f)
 
 	fmt.Printf("Day 8-Part 1: %d\n", p1)
 	fmt.Printf("Day 8-Part 2: %d\n", p2)
 }
 
-func part2(forest *forest) int {
+func solve(forest *forest) (int, int) {
 	highest := 0
+	visible := forest.cols*2 + forest.rows*2 - 4
 	for y := 1; y < forest.rows-1; y++ {
 		for x := 1; x < forest.cols-1; x++ {
 			north, south, east, west := checkTree(x, y, (*forest.trees)[y][x], forest)
+			// part1
+			if west == x || forest.rows-1-east == x || north == y || forest.cols-1-south == y {
+				visible++
+			}
+
+			// part2
 			if north != y {
 				north++
 			}
@@ -51,20 +57,7 @@ func part2(forest *forest) int {
 			}
 		}
 	}
-	return highest
-}
-
-func part1(forest *forest) int {
-	visible := forest.cols*2 + forest.rows*2 - 4
-	for y := 1; y < forest.rows-1; y++ {
-		for x := 1; x < forest.cols-1; x++ {
-			north, south, east, west := checkTree(x, y, (*forest.trees)[y][x], forest)
-			if west == x || forest.rows-1-east == x || north == y || forest.cols-1-south == y {
-				visible++
-			}
-		}
-	}
-	return visible
+	return visible, highest
 }
 
 func checkTree(x, y, currentTree int, forest *forest) (int, int, int, int) {
