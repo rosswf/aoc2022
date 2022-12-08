@@ -68,41 +68,29 @@ func part1(forest *forest) int {
 }
 
 func checkTree(x, y, currentTree int, forest *forest) (int, int, int, int) {
-	west := 0
-	for i := x - 1; i >= 0; i-- {
-		if currentTree > (*forest.trees)[y][i] {
-			west++
-			continue
-		}
-		break
+	var (
+		north int
+		south int
+		east  int
+		west  int
+	)
+
+	for i := x - 1; (i >= 0) && (currentTree > (*forest.trees)[y][i]); i-- {
+		west++
 	}
 
-	east := 0
-	for i := x + 1; i < forest.rows; i++ {
-		if currentTree > (*forest.trees)[y][i] {
-			east++
-			continue
-		}
-		break
+	for i := x + 1; i < forest.rows && currentTree > (*forest.trees)[y][i]; i++ {
+		east++
 	}
 
-	north := 0
-	for i := y - 1; i >= 0; i-- {
-		if currentTree > (*forest.trees)[i][x] {
-			north++
-			continue
-		}
-		break
+	for i := y - 1; i >= 0 && currentTree > (*forest.trees)[i][x]; i-- {
+		north++
 	}
 
-	south := 0
-	for i := y + 1; i < forest.cols; i++ {
-		if currentTree > (*forest.trees)[i][x] {
-			south++
-			continue
-		}
-		break
+	for i := y + 1; i < forest.cols && currentTree > (*forest.trees)[i][x]; i++ {
+		south++
 	}
+
 	return north, south, east, west
 }
 
