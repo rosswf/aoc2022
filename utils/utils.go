@@ -20,3 +20,10 @@ func (st *Stack) Pop() string {
 	*st = (*st)[:i]
 	return v
 }
+
+func Abs(i int) int {
+	if i < 0 {
+		return -i
+	}
+	return i
+}
