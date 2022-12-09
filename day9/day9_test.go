@@ -14,7 +14,8 @@ var ti2 string
 
 func TestPart1(t *testing.T) {
 	ti := strings.TrimSuffix(ti, "\n")
-	got := part1(ti)
+	commands := parse(ti)
+	got := part1(commands)
 	want := 13
 
 	if got != want {
@@ -25,11 +26,13 @@ func TestPart1(t *testing.T) {
 
 func TestPart2(t *testing.T) {
 	ti := strings.TrimSuffix(ti, "\n")
-	got := part2(ti)
+	commands := parse(ti)
+	got := part2(commands)
 	want := 1
 
 	ti2 := strings.TrimSuffix(ti2, "\n")
-	got2 := part2(ti2)
+	commands2 := parse(ti2)
+	got2 := part2(commands2)
 	want2 := 36
 
 	if got != want {

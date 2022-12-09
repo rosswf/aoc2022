@@ -30,34 +30,32 @@ func init() {
 }
 
 func main() {
-	p1 := part1(s)
-	p2 := part2(s)
+	commands := parse(s)
+	p1 := part1(commands)
+	p2 := part2(commands)
 
 	fmt.Printf("Day 9-Part 1: %d\n", p1)
 	fmt.Printf("Day 9-Part 2: %d\n", p2)
 }
 
-func part1(s string) int {
+func part1(commands *[]command) int {
 	h := &point{x: 0, y: 0}
 	t0 := &point{x: 0, y: 0, visited: map[[2]int]struct{}{{0, 0}: Empty}}
 	tails := []*point{t0}
 
-	commands := parse(s)
 	moveHead(commands, h, tails)
 
 	return len(tails[0].visited)
 }
 
-func part2(s string) int {
+func part2(commands *[]command) int {
 	h := &point{x: 0, y: 0}
 	tails := []*point{}
 
 	for i := 0; i < 9; i++ {
 		tails = append(tails, &point{x: 0, y: 0, visited: map[[2]int]struct{}{{0, 0}: Empty}})
-
 	}
 
-	commands := parse(s)
 	moveHead(commands, h, tails)
 
 	return len(tails[8].visited)
@@ -91,26 +89,17 @@ func moveTail(t, h *point, d string) {
 	// diagonal
 	if t.x != h.x && t.y != h.y {
 		switch h.y - t.y {
-		case 2:
+		case 2, 1:
 			t.y++
-		case -2:
-			t.y--
-		case 1:
-			t.y++
-		case -1:
+		case -2, -1:
 			t.y--
 		}
 		switch h.x - t.x {
-		case -2:
+		case -2, -1:
 			t.x--
-		case 2:
-			t.x++
-		case -1:
-			t.x--
-		case 1:
+		case 2, 1:
 			t.x++
 		}
-
 	} else {
 		switch h.y - t.y {
 		case 2:
