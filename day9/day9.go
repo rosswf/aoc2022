@@ -39,8 +39,19 @@ func main() {
 }
 
 func part1(commands *[]command) int {
-	h := &point{x: 0, y: 0}
-	t0 := &point{x: 0, y: 0, visited: map[[2]int]struct{}{{0, 0}: Empty}}
+	h := &point{
+		x: 0,
+		y: 0,
+	}
+
+	t0 := &point{
+		x: 0,
+		y: 0,
+		visited: map[[2]int]struct{}{
+			{0, 0}: Empty,
+		},
+	}
+
 	tails := []*point{t0}
 
 	moveHead(commands, h, tails)
@@ -53,7 +64,14 @@ func part2(commands *[]command) int {
 	tails := []*point{}
 
 	for i := 0; i < 9; i++ {
-		tails = append(tails, &point{x: 0, y: 0, visited: map[[2]int]struct{}{{0, 0}: Empty}})
+		tails = append(tails,
+			&point{
+				x: 0,
+				y: 0,
+				visited: map[[2]int]struct{}{
+					{0, 0}: Empty,
+				},
+			})
 	}
 
 	moveHead(commands, h, tails)
