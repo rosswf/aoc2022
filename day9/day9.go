@@ -60,7 +60,11 @@ func part1(commands *[]command) int {
 }
 
 func part2(commands *[]command) int {
-	h := &point{x: 0, y: 0}
+	h := &point{
+		x: 0,
+		y: 0,
+	}
+
 	tails := []*point{}
 
 	for i := 0; i < 9; i++ {
